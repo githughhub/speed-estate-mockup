@@ -258,7 +258,7 @@ table.t td{padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:m
 .chart .bar{transition:height .9s var(--ease),y .9s var(--ease)}
 .age{font-weight:800;font-size:12px;padding:3px 9px;border-radius:99px}
 .age.g{background:color-mix(in oklab,var(--ok) 15%,transparent);color:var(--ok)}.age.a{background:color-mix(in oklab,var(--warn) 22%,transparent);color:color-mix(in oklab,var(--warn) 70%,var(--ink))}.age.r{background:color-mix(in oklab,var(--bad) 15%,transparent);color:var(--bad)}
-.switch{position:relative;width:52px;height:30px;border-radius:99px;background:var(--bg-2);border:1px solid var(--line);cursor:pointer;flex:none;transition:background .25s}
+.switch{display:inline-block;vertical-align:middle;position:relative;width:52px;height:30px;border-radius:99px;background:var(--bg-2);border:1px solid var(--line);cursor:pointer;flex:none;transition:background .25s}
 .switch::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:var(--card);box-shadow:var(--shadow);transition:left .25s var(--ease)}
 .switch[aria-checked=true]{background:var(--signal)}.switch[aria-checked=true]::after{left:25px}
 
@@ -317,6 +317,119 @@ table.t td{padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:m
   .filters{position:static}
   .demo-btn span{display:none}
 }
+
+/* ================= Mobile-first layer (GROK, Nov 25 revision) ================= */
+.mobonly,.mobonly-i,.notes-fab,.sheet-bd{display:none}
+.deskonly-i{display:inline}
+.drawer-bd{position:fixed;inset:0;z-index:88;background:rgba(5,14,18,.45);animation:viewIn .2s}
+.drawer{position:fixed;top:0;right:0;bottom:0;z-index:89;width:min(340px,88vw);background:var(--card);border-left:1px solid var(--line);box-shadow:var(--shadow-lg);overflow-y:auto;overscroll-behavior:contain;padding:calc(12px + env(safe-area-inset-top)) 14px calc(18px + env(safe-area-inset-bottom));transform:translateX(100%);transition:transform .28s var(--ease)}
+.drawer.in{transform:none}
+.drawer h6{margin:14px 4px 6px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.drawer .droles{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.drawer .droles button{min-height:44px;border-radius:12px;border:1px solid var(--line);background:var(--bg-2);font-weight:700;font-size:14px;color:var(--ink-2);cursor:pointer}
+.drawer .droles button[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.drawer .dtools{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:12px}
+.drawer .dtools .btn{min-height:44px;font-size:14px;padding:8px 10px}
+.drawer .dlink{display:flex;align-items:center;gap:12px;min-height:46px;padding:0 10px;border-radius:12px;color:var(--ink);font-weight:650;font-size:15px}
+.drawer .dlink:hover{text-decoration:none;background:var(--bg-2)}
+.drawer .dlink.on{background:var(--ink);color:var(--bg)}
+.drawer .dlink .k{margin-left:auto;font-size:10px;font-weight:800;letter-spacing:.08em;padding:2px 6px;border-radius:6px;background:var(--bg-2);color:var(--ink-2)}
+.fbtn{width:100%;margin-bottom:10px}
+
+@media (max-width:1100px){
+  .deskonly{display:none!important}
+  .mobonly{display:grid}
+  .mobonly-i{display:inline}.deskonly-i{display:none}
+  .top{gap:8px;padding:calc(8px + env(safe-area-inset-top)) calc(12px + env(safe-area-inset-right)) 8px calc(12px + env(safe-area-inset-left))}
+  .iconbtn{width:44px;height:44px}
+  .demo-btn{min-height:44px;padding:8px 12px}
+  main{padding:18px calc(14px + env(safe-area-inset-right)) calc(150px + env(safe-area-inset-bottom)) calc(14px + env(safe-area-inset-left))}
+  /* notes: hidden bottom sheet */
+  .notes{display:block!important;position:fixed;left:0;right:0;bottom:0;top:auto;height:auto;max-height:78vh;z-index:86;border-left:0;border-top:1px solid var(--line);border-radius:22px 22px 0 0;box-shadow:0 -20px 60px rgba(0,0,0,.25);background:var(--card);padding:10px 16px calc(24px + env(safe-area-inset-bottom));overflow-y:auto;overscroll-behavior:contain;transform:translateY(105%);visibility:hidden;transition:transform .3s var(--ease),visibility 0s .3s;animation:none!important}
+  .app.notes-on .notes{transform:none;visibility:visible;transition:transform .3s var(--ease)}
+  .notes .grab{display:block;width:44px;height:5px;border-radius:9px;background:var(--line);margin:-4px auto 10px;order:-1}
+  .notes .nh{position:sticky;top:-10px;background:var(--card);padding:8px 0;z-index:1}
+  .notes .nh .btn{min-height:44px;min-width:64px}
+  body.sheet-open .sheet-bd{display:block;position:fixed;inset:0;z-index:85;background:rgba(5,14,18,.4)}
+  .notes-fab{display:flex;align-items:center;gap:8px;position:fixed;right:calc(12px + env(safe-area-inset-right));bottom:calc(74px + env(safe-area-inset-bottom));z-index:55;min-height:44px;padding:6px 14px 6px 6px;border-radius:99px;border:1px solid var(--line);background:var(--ink);color:var(--bg);font-weight:800;font-size:14px;box-shadow:var(--shadow-lg);cursor:pointer}
+  .notes-fab .gk{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:var(--teal);color:#fff;font-weight:900}
+  .notes-fab b{font-family:var(--f-mono);font-size:12px;background:var(--signal);color:#fff;border-radius:99px;padding:1px 7px}
+  .notes-fab.on{visibility:hidden}
+  body.demo-on .notes-fab{display:none}
+  /* bottom tab bar */
+  .bottomnav{padding:4px calc(4px + env(safe-area-inset-right)) calc(4px + env(safe-area-inset-bottom)) calc(4px + env(safe-area-inset-left))}
+  .bottomnav a{min-height:52px;min-width:56px;justify-content:center;font-size:11px}
+  .toasts{left:calc(10px + env(safe-area-inset-left));right:calc(10px + env(safe-area-inset-right));bottom:calc(128px + env(safe-area-inset-bottom));align-items:stretch}
+  .toast{max-width:none}
+  .panel{left:8px;right:8px;width:auto;top:calc(64px + env(safe-area-inset-top));max-height:calc(100vh - 160px)}
+  .panel .ni{min-height:44px}
+}
+@media (max-width:760px){
+  html{-webkit-text-size-adjust:100%}
+  body{font-size:16px}
+  .brand{font-size:17px}.brand svg{width:28px;height:28px}
+  .demo-btn span{display:none}
+  .h1{font-size:clamp(28px,8.4vw,38px)}
+  .h2{font-size:22px}
+  .in,select.in,textarea.in,input,select,textarea{font-size:16px!important}
+  .btn{min-height:44px}
+  .btn.sm{min-height:44px;padding:8px 14px}
+  .seg button{min-height:40px;padding:8px 14px;font-size:14px}
+  .seg{max-width:100%;overflow-x:auto}
+  .switch{width:56px;height:32px}
+  .switch::before{content:"";position:absolute;inset:-7px}
+  .lc .save{width:44px;height:44px}
+  .row.between{flex-wrap:wrap;gap:10px}
+  .row{flex-wrap:wrap}
+  .kv{grid-template-columns:minmax(0,auto) minmax(0,1fr)}.kv dd{overflow-wrap:anywhere}
+  .card{padding:16px;min-width:0}
+  .grid{min-width:0}
+  table.t{display:block;max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  table.t.stack-sm{display:table;overflow:visible}
+  table.t.stack-sm thead{display:none}
+  table.t.stack-sm,table.t.stack-sm tbody,table.t.stack-sm tr,table.t.stack-sm td{display:block;width:100%}
+  table.t.stack-sm tr{border:1px solid var(--line);border-radius:14px;padding:8px 12px;margin-bottom:10px;background:var(--card-2)}
+  table.t.stack-sm td{border:0;padding:5px 0;display:flex;gap:12px;justify-content:space-between;align-items:flex-start;text-align:right}
+  table.t.stack-sm td::before{content:attr(data-l);font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:left;flex:none}
+  table.t.stack-sm td:nth-child(2){text-align:left;display:block}table.t.stack-sm td:nth-child(2)::before{display:block;margin-bottom:2px}
+  .filters{padding:12px}
+  .filters:not(.open) .fi:not(:first-child){display:none}
+  .filters .fi{min-width:calc(50% - 5px)}
+  .filters .fi:first-child{min-width:100%}
+  .search-layout:not(.map-only) .mapwrap{display:none}
+  .mapwrap{position:relative;top:0}
+  .cards{grid-template-columns:minmax(0,1fr)}
+  .steps{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .steps .s{flex:0 0 auto;min-height:44px}
+  .clocks{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .clock .t{font-size:15px}
+  .photos{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .gallery{height:340px}
+  .hero{border-radius:22px;padding:24px 20px}
+  .hero .one{display:none}
+  .savings{padding:18px}
+  .lightbox{padding:12px}.lightbox svg{max-width:96vw;max-height:70vh}
+  /* guided demo: thumb-friendly, always on screen */
+  .demo{left:calc(8px + env(safe-area-inset-left));right:calc(8px + env(safe-area-inset-right));bottom:calc(8px + env(safe-area-inset-bottom));width:auto;transform:none;padding:12px;max-height:46vh;overflow:auto}
+  .demo .row.between{flex-direction:column;align-items:stretch}
+  .demo .row.between>.row{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+  .demo .btn{min-height:48px;font-size:14px;padding:6px 8px}
+  .demo .cap{font-size:16px}
+  body.demo-on .bottomnav{display:none}
+  body.demo-on main{padding-bottom:calc(240px + env(safe-area-inset-bottom))}
+}
+@media (max-width:380px){.drawer .dtools,.drawer .droles{grid-template-columns:1fr}.clocks{grid-template-columns:1fr}}
+@media (max-width:1100px){.bottomnav a{flex:1 1 0;min-width:0;padding:6px 2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.bottomnav a span{max-width:100%;overflow:hidden;text-overflow:ellipsis}}
+@media (max-width:760px){.grid[style*="grid-template-columns"]{grid-template-columns:minmax(0,1fr)!important}}
+@media (max-width:760px){
+  .grid.g4{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .rank{grid-template-columns:32px minmax(0,1fr);gap:10px;align-items:start}
+  .rank>:last-child{grid-column:1/-1}
+  .rank .n{font-size:26px}
+  .rank>:last-child .row{justify-content:stretch}
+  .rank>:last-child .btn{flex:1}
+}
+@media (min-width:761px){.fbtn{display:none!important}}
 </style></head>
 <body><noscript>This mock-up needs JavaScript.</noscript>
 <script>/* Speed Estate marketplace mock-up · GROK-36 · front end only · example data */
@@ -327,6 +440,8 @@ const fmt=n=>"$"+Math.round(n).toLocaleString("en-US");
 const fmtK=n=>n>=1e6?"$"+(n/1e6).toFixed(2).replace(/\.?0+$/,"")+"M":"$"+Math.round(n/1000)+"K";
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const isMob=()=>window.matchMedia("(max-width:760px)").matches;
+const isCompact=()=>window.matchMedia("(max-width:1100px)").matches;
 const DAY=864e5;
 const FEE=0.01;            // settled: 1%, no minimum
 const KEY="speed-estate-mock-grok36-v1";
@@ -592,26 +707,32 @@ const NAV=[
 const ROLE_HOME={buyer:"/search",seller:"/seller",agent:"/agent",admin:"/admin"};
 const ROLE_LABEL={buyer:"Buyer",seller:"Seller · Path A",agent:"Agent · Path B",admin:"Speed Estate admin"};
 
+const notesOn=()=>isCompact()?!!S.mnotes:!!S.notes;
+function setNotes(v){if(isCompact())S.mnotes=v;else S.notes=v;save();const a=$("#app");if(a)a.classList.toggle("notes-on",v);const nb=$("#notesBtn");if(nb)nb.setAttribute("aria-pressed",v);const f=$("#notesFab");if(f){f.setAttribute("aria-expanded",v);f.classList.toggle("on",v)}document.body.classList.toggle("sheet-open",v&&isCompact())}
 function shell(){
   document.body.innerHTML=`
-  <div class="app ${S.notes?"notes-on":""}" id="app">
+  <div class="app ${notesOn()?"notes-on":""}" id="app">
    <header class="top">
     <a class="brand" href="#/" aria-label="Speed Estate home">${LOGO}<span><span class="w1">Speed</span> <span class="w2">Estate</span></span></a>
     <span class="mockchip" title="Front-end mock-up. Example data only.">Mock-up · example data</span>
     <div class="grow"></div>
-    <div class="roles" role="group" aria-label="View as">${Object.keys(ROLE_LABEL).map(k=>`<button data-a="role" data-v="${k}" aria-pressed="${S.role===k}">${ROLE_LABEL[k]}</button>`).join("")}</div>
+    <div class="roles deskonly" role="group" aria-label="View as">${Object.keys(ROLE_LABEL).map(k=>`<button data-a="role" data-v="${k}" aria-pressed="${S.role===k}">${ROLE_LABEL[k]}</button>`).join("")}</div>
     <button class="demo-btn" data-a="demo">${ic("play",14)} <span>Guided demo</span></button>
-    <button class="iconbtn" data-a="assist" aria-label="Ask Speed Estate (assistant)" title="Assistant (FR-AI-01)">${ic("q")}</button>
+    <button class="iconbtn deskonly" data-a="assist" aria-label="Ask Speed Estate (assistant)" title="Assistant (FR-AI-01)">${ic("q")}</button>
     <button class="iconbtn" data-a="bell" aria-label="Notifications" id="bell">${ic("bell")}<span class="dot" id="bellDot" hidden></span></button>
-    <button class="iconbtn" data-a="theme" aria-label="Toggle dark or light theme" id="themeBtn">${ic(S.theme==="dark"?"sun":"moon")}</button>
-    <button class="iconbtn" data-a="notes" aria-label="Toggle GROK notes" aria-pressed="${S.notes}" id="notesBtn" title="GROK notes (N)">${ic("notes")}</button>
+    <button class="iconbtn deskonly" data-a="theme" aria-label="Toggle dark or light theme" id="themeBtn">${ic(S.theme==="dark"?"sun":"moon")}</button>
+    <button class="iconbtn deskonly" data-a="notes" aria-label="Toggle GROK notes" aria-pressed="${notesOn()}" id="notesBtn" title="GROK notes (N)">${ic("notes")}</button>
+    <button class="iconbtn mobonly" data-a="menu" aria-label="Open menu" aria-haspopup="dialog" id="menuBtn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
    </header>
    <nav class="side" id="side" aria-label="Screens"></nav>
    <main id="main" tabindex="-1"></main>
    <aside class="notes" id="notes" aria-label="GROK notes"></aside>
   </div>
   <nav class="bottomnav" id="bnav" aria-label="Quick navigation"></nav>
+  <button class="notes-fab mobonly ${notesOn()?"on":""}" id="notesFab" data-a="notes" aria-expanded="${notesOn()}" aria-controls="notes"><span class="gk">G</span><span>Notes</span><b id="notesCount">0</b></button>
+  <div class="sheet-bd" data-a="notes" aria-hidden="true"></div>
   <div class="toasts" id="toasts" aria-live="polite"></div>`;
+  document.body.classList.toggle("sheet-open",notesOn()&&isCompact());
   applyTheme();
 }
 function applyTheme(){document.documentElement.setAttribute("data-theme",S.theme);const b=$("#themeBtn");if(b)b.innerHTML=ic(S.theme==="dark"?"sun":"moon")}
@@ -631,8 +752,9 @@ function renderNotes(path){
   const list=NOTES[base]||[];
   const lab={brd:["brd","BRD"],prop:["prop","PROPOSED"],ali:["ali","Q · ALI"],vik:["vik","Q · APPITEZ"],hugh:["hugh","HUGH"],ver:["ver","VERIFIED"],unv:["unv","UNVERIFIED"],concept:["concept","CONCEPT"],p2:["p2","PHASE 2"]};
   const cls={ali:"q",vik:"q",hugh:"q",prop:"p",ver:"v",unv:"u",concept:"p",p2:"p"};
-  $("#notes").innerHTML=`<div class="nh"><span class="gk">G</span><b>GROK notes</b><span class="grow"></span><button class="btn ghost sm" data-a="notes" style="margin-left:auto">Hide</button></div>
-   <p class="small muted" style="margin:0 0 6px">What this screen covers in Appitez BRD v1.0, what GROK proposes, and the open questions. Press <b>N</b> to toggle.</p>
+  const nc=$("#notesCount");if(nc)nc.textContent=list.length;
+  $("#notes").innerHTML=`<div class="nh"><span class="gk">G</span><b>GROK notes</b><span class="grow"></span><button class="btn ghost sm" data-a="notes" style="margin-left:auto" aria-label="Close GROK notes">Hide</button></div><div class="grab mobonly" aria-hidden="true"></div>
+   <p class="small muted" style="margin:0 0 6px">What this screen covers in Appitez BRD v1.0, what GROK proposes, and the open questions. <span class="deskonly-i">Press <b>N</b> to toggle.</span><span class="mobonly-i">Tap Notes to open or close.</span></p>
    ${list.map(([k,t])=>`<div class="note ${cls[k]||""}"><span class="tag ${lab[k][0]}">${lab[k][1]}</span>${esc(t)}</div>`).join("")||'<div class="note">No notes for this screen.</div>'}
    <hr class="s"><p class="tiny muted">Labels follow the Bots-folder protocol: VERIFIED / REPORTED BY HUGH / UNVERIFIED / PROPOSED. Nothing here is legal advice.</p>`;
 }
@@ -748,9 +870,10 @@ function mapSVG(list){
 V["/search"]=()=>{
   const f=S.filters, list=filtered();
   return `<div class="row between" style="margin-bottom:14px"><div><div class="eyebrow">Search · statewide California</div><h1 class="h1" style="margin-top:4px">Find a home</h1></div>
-   <div class="row"><div class="seg" role="group" aria-label="Layout">${[["split","Split"],["list","List"],["map","Map"]].map(([k,t])=>`<button data-a="view" data-v="${k}" aria-pressed="${S.view===k}">${t}</button>`).join("")}</div></div></div>
+   <div class="row"><div class="seg" role="group" aria-label="Layout">${(isMob()?[["list","List"],["map","Map"]]:[["split","Split"],["list","List"],["map","Map"]]).map(([k,t])=>`<button data-a="view" data-v="${k}" aria-pressed="${(isMob()&&S.view==="split"?"list":S.view)===k}">${t}</button>`).join("")}</div></div></div>
   ${S.mode!=="full"?`<div class="banner warn" style="margin-bottom:12px">${ic("flag")}<div><b>Seller-direct only (Dec 18 rule).</b> MLS access isn't in hand, so CRMLS listings are hidden in this release mode. Change it in <a href="#/admin">Admin</a>.</div></div>`:""}
-  <div class="filters" id="filters">
+  <button class="btn ghost mobonly fbtn" id="fbtn" data-a="fopen" aria-expanded="${!!S.fopen}" aria-controls="filters">${ic("search",16)} Filters, budget and sort</button>
+  <div class="filters ${S.fopen?"open":""}" id="filters">
    <label class="fi" style="flex:2"><span>Search</span><input class="in" placeholder="Street, region or type" value="${esc(f.q)}" data-in="fq"></label>
    <label class="fi"><span>Region</span><select class="in" data-in="fregion"><option value="all">All California</option>${REGIONS.map(r=>`<option value="${r.k}" ${f.region===r.k?"selected":""}>${r.n}</option>`).join("")}</select></label>
    <label class="fi"><span>Max price</span><select class="in" data-in="fmax">${[600000,900000,1200000,2000000].map(v=>`<option value="${v}" ${f.max===v?"selected":""}>${v===2000000?"Any":"Up to "+fmtK(v)}</option>`).join("")}</select></label>
@@ -760,7 +883,7 @@ V["/search"]=()=>{
    <label class="fi"><span>My budget</span><input class="in mono" value="${fmt(S.budget)}" data-in="budget" inputmode="numeric" aria-describedby="bhelp"></label>
   </div>
   <p class="small muted" id="bhelp" style="margin:10px 2px"><b id="rc">${list.length}</b> homes · Speed Estate listings first, then CRMLS · homes above your budget are tagged, not hidden <span class="tag prop">PROPOSED</span></p>
-  <div class="search-layout ${S.view==="list"?"list-only":S.view==="map"?"map-only":""}" id="slay">
+  <div class="search-layout ${S.view==="list"||(isMob()&&S.view==="split")?"list-only":S.view==="map"?"map-only":""}" id="slay">
    <div class="lst"><div class="cards" id="cards">${list.map(card).join("")||'<div class="empty">No homes match. Widen your filters.</div>'}</div></div>
    ${S.view!=="list"?`<div class="mapwrap" id="mapwrap">${mapSVG(list)}<div class="maplegend"><span class="pill a">● Path A</span><span class="pill b">● Path B</span></div><div class="maptip" id="maptip"></div></div>`:""}
   </div>${footer()}`;
@@ -1233,21 +1356,21 @@ const BRD=[
  ["FR-SMART-02","Escalation to SEADMIN and broker email","Critical","/admin","cov"],
  ["FR-INT-01","CRMLS via RESO Web API / Trestle, broker credentials","Critical","/search","cov"],
  ["FR-AI-01","Floating assistant for onboarding and FAQs","Medium","assistant","cov"],
- ["NFR-SEC-01","TLS 1.3 in transit, AES-256 at rest incl. S3 documents","—","","be"],
- ["NFR-SEC-02","OTP rate limit: 3 requests per 10 minutes","—","/signin","cov"],
- ["NFR-PERF-01","API under 300 ms, pages under 2.0 s via CDN","—","","be"],
- ["NFR-SCA-01","50,000 concurrent users, 100,000 listings","—","","be"],
- ["NFR-AVA-01","99.9% uptime, multi-AZ failover","—","","be"],
- ["NFR-REL-01","Idempotent offer acceptance, escrow opening, milestones","—","/deal","be"],
- ["NFR-COMP-01","DRE standards and financial confidentiality","—","/ack","gap"],
- ["NFR-ACC-01","WCAG 2.1 AA","—","/about","cov"],
- ["NFR-MNT-01","Microservices, CI/CD, API docs","—","","be"]];
+ ["NFR-SEC-01","TLS 1.3 in transit, AES-256 at rest incl. S3 documents","Not set","","be"],
+ ["NFR-SEC-02","OTP rate limit: 3 requests per 10 minutes","Not set","/signin","cov"],
+ ["NFR-PERF-01","API under 300 ms, pages under 2.0 s via CDN","Not set","","be"],
+ ["NFR-SCA-01","50,000 concurrent users, 100,000 listings","Not set","","be"],
+ ["NFR-AVA-01","99.9% uptime, multi-AZ failover","Not set","","be"],
+ ["NFR-REL-01","Idempotent offer acceptance, escrow opening, milestones","Not set","/deal","be"],
+ ["NFR-COMP-01","DRE standards and financial confidentiality","Not set","/ack","gap"],
+ ["NFR-ACC-01","WCAG 2.1 AA","Not set","/about","cov"],
+ ["NFR-MNT-01","Microservices, CI/CD, API docs","Not set","","be"]];
 const BRD_ST={cov:["ok","Covered"],chg:["warn","Covered · changed (PROPOSED)"],p2:["p2","Phase 2"],be:["","Back end · no screen"],gap:["bad","Partly covered · needs counsel"]};
 V["/brd"]=()=>{const f=S.brdF||"all";const rows=BRD.filter(r=>f==="all"||r[4]===f);
   return `<div class="eyebrow">Appitez BRD v1.0 · read firsthand Nov 25, 2026</div><h1 class="h1" style="margin:6px 0 6px">Requirement trace</h1>
   <p class="muted" style="max-width:760px">Every numbered requirement in BRD v1.0 (dated Nov 23, last updated Nov 25, 2026) and where this mock-up shows it. Counts: 21 functional, 9 non-functional.</p>
   <div class="seg" role="group" style="margin:12px 0">${[["all","All"],["cov","Covered"],["chg","Changed"],["p2","Phase 2"],["be","Back end"],["gap","Gaps"]].map(([k,t])=>`<button data-a="brdF" data-v="${k}" aria-pressed="${f===k}">${t}</button>`).join("")}</div>
-  <div class="card" style="overflow:auto"><table class="t"><thead><tr><th>ID</th><th>Requirement</th><th>Priority</th><th>Screen</th><th>Status</th></tr></thead><tbody>${rows.map(r=>`<tr><td class="mono small" style="white-space:nowrap">${r[0]}</td><td class="small">${esc(r[1])}</td><td class="small">${r[2]}</td><td class="small">${r[3]==="assistant"?'<a href="#" data-a="assist">Assistant</a>':r[3]?`<a href="#${r[3]}">${r[3]}</a>`:"—"}</td><td><span class="pill ${BRD_ST[r[4]][0]}">${BRD_ST[r[4]][1]}</span></td></tr>`).join("")}</tbody></table></div>
+  <div class="card"><table class="t stack-sm"><thead><tr><th>ID</th><th>Requirement</th><th>Priority</th><th>Screen</th><th>Status</th></tr></thead><tbody>${rows.map(r=>`<tr><td class="mono small" style="white-space:nowrap" data-l="ID">${r[0]}</td><td class="small" data-l="Requirement">${esc(r[1])}</td><td class="small" data-l="Priority">${r[2]}</td><td class="small" data-l="Screen">${r[3]==="assistant"?'<a href="#" data-a="assist">Assistant</a>':r[3]?`<a href="#${r[3]}">${r[3]}</a>`:"None"}</td><td data-l="Status"><span class="pill ${BRD_ST[r[4]][0]}">${BRD_ST[r[4]][1]}</span></td></tr>`).join("")}</tbody></table></div>
   <div class="grid g2" style="margin-top:16px">
    <div class="card"><b>Not in BRD v1.0 at all, but built here</b><ul class="small" style="padding-left:18px;line-height:1.8"><li>Fee model: two-path 1%, no minimum (settled)</li><li>Path A seller-only terms, unrepresented-buyer acknowledgment, seller-hosted showings</li><li>Path B buyer-only on MLS listings and the buyer-representation agreement</li><li>Contract deadline clocks (Smart Aging tracks idle time, not contract dates)</li><li>Document checklist, retention and access rules</li><li>CRMLS display and attribution rules, opt-out handling</li><li>Dec 18 release mode</li><li>Journey C has steps but no FR number</li><li>Acceptance criteria and named acceptors (none on any requirement)</li></ul></div>
    <div class="card"><b>Contradictions inside BRD v1.0</b><ol class="small" style="padding-left:18px;line-height:1.7"><li>Escrow Account ID: issued at mutual acceptance (FR-ESCR-01, Objective 5) but Journey A step 12 says closing triggers it.</li><li>FR-BUYR-01 Optional vs FR-BUYR-02 Critical vs Objective 3 "strictly enforcing" caps.</li><li>SEESCRW described as a Speed Estate service vs AS-04 outside affiliated escrow officers.</li><li>Ali listed as California broker license holder; the DRE record shows the corporation license with Melissa Marin as designated officer.</li><li>Web stack "React JS / Angular JS" in scope and stack table vs React JS in the recommended stack.</li><li>Elastic Beanstalk labeled serverless.</li><li>Journey A says 4 photos; FR-SELR-02 makes 3 required plus 1 optional.</li></ol></div></div>${footer()}`;};
@@ -1279,6 +1402,7 @@ function render(keepScroll){
 const rerender=()=>render(true);
 const go=r=>{if(location.hash==="#"+r)render();else location.hash=r};
 window.addEventListener("hashchange",()=>{closePanels();render()});
+let lastMQ=isMob()+"|"+isCompact();window.addEventListener("resize",()=>{const m=isMob()+"|"+isCompact();if(m!==lastMQ){lastMQ=m;closePanels();shell();render(true)}});
 
 /* ---------- live clocks ---------- */
 function fmtLeft(ms){if(ms<=0)return"Due now";const d=Math.floor(ms/DAY),h=Math.floor(ms%DAY/3600e3),m=Math.floor(ms%3600e3/6e4),s=Math.floor(ms%6e4/1e3);return(d?d+"d ":"")+String(h).padStart(2,"0")+"h "+String(m).padStart(2,"0")+"m "+String(s).padStart(2,"0")+"s"}
@@ -1291,7 +1415,16 @@ function confetti(){const c=document.createElement("canvas");c.className="confet
   let t=0;(function f(){x.clearRect(0,0,c.width,c.height);P.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.4;p.r+=.1;x.save();x.translate(p.x,p.y);x.rotate(p.r);x.fillStyle=p.c;x.fillRect(-p.s/2,-p.s/2,p.s,p.s*.6);x.restore()});if(++t<150)requestAnimationFrame(f);else c.remove()})();}
 
 /* ---------- panels ---------- */
-function closePanels(){$$(".panel,.lightbox").forEach(p=>p.remove())}
+function closePanels(){$$(".panel,.lightbox,.drawer,.drawer-bd").forEach(p=>p.remove())}
+function menuPanel(){if($(".drawer")){closePanels();return}closePanels();const base=parse().base;
+  const bd=document.createElement("div");bd.className="drawer-bd";bd.dataset.a="menuClose";document.body.appendChild(bd);
+  const d=document.createElement("div");d.className="drawer";d.setAttribute("role","dialog");d.setAttribute("aria-label","Menu");
+  d.innerHTML=`<div class="row between"><b>Menu</b><button class="iconbtn" data-a="menuClose" aria-label="Close menu">✕</button></div>
+   <div class="dsec"><h6>View as</h6><div class="droles">${Object.keys(ROLE_LABEL).map(k=>`<button data-a="role" data-v="${k}" aria-pressed="${S.role===k}">${ROLE_LABEL[k]}</button>`).join("")}</div></div>
+   <div class="dsec dtools"><button class="btn ghost" data-a="theme">${ic(S.theme==="dark"?"sun":"moon")} ${S.theme==="dark"?"Light":"Dark"} theme</button><button class="btn ghost" data-a="notes">${ic("notes")} GROK notes</button><button class="btn ghost" data-a="assist">${ic("q")} Ask Speed Estate</button><button class="btn signal" data-a="demo">${ic("play",14)} Guided demo</button></div>
+   ${NAV.map(([g,items])=>`<div class="dsec"><h6>${g}</h6>${items.map(([r,t,i,k])=>`<a href="#${r}" class="dlink ${base===r?"on":""}" data-a="menuClose">${ic(i,18)}<span>${t}</span>${k==="p2"?'<span class="k">PHASE 2</span>':k==="concept"?'<span class="k">CONCEPT</span>':""}</a>`).join("")}</div>`).join("")}
+   <p class="tiny muted" style="margin-top:10px">Front-end mock-up. Example data only.</p>`;
+  document.body.appendChild(d);requestAnimationFrame(()=>d.classList.add("in"))}
 function bellPanel(){if($(".panel")){closePanels();return}const p=document.createElement("div");p.className="panel";p.setAttribute("role","dialog");p.setAttribute("aria-label","Notifications");
   p.innerHTML=`<div class="row between" style="padding:6px 8px"><b>Notifications</b><button class="btn ghost sm" data-a="readAll">Mark all read</button></div>`+(S.notifs.map(n=>`<div class="ni ${n.read?"":"unread"}" data-a="notif" data-id="${n.id}"><i></i><div><div class="small">${esc(n.t)}</div><div class="tiny muted">${ago(n.at)}</div></div></div>`).join("")||'<p class="small muted" style="padding:8px">Nothing yet.</p>');
   document.body.appendChild(p)}
@@ -1314,7 +1447,10 @@ const A={
  role(el){S.role=el.dataset.v;save();$$(".roles button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.v===S.role));toast("Viewing as "+ROLE_LABEL[S.role]);go(ROLE_HOME[S.role])},
  roleGo(el){S.role=el.dataset.v;save();$$(".roles button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.v===S.role))},
  theme(){S.theme=S.theme==="dark"?"light":"dark";save();applyTheme();rerender()},
- notes(){S.notes=!S.notes;save();$("#app").classList.toggle("notes-on",S.notes);$("#notesBtn").setAttribute("aria-pressed",S.notes)},
+ notes(){closePanels();setNotes(!notesOn())},
+ menu(){menuPanel()},
+ menuClose(){closePanels()},
+ fopen(){S.fopen=!S.fopen;const f=$("#filters");if(f)f.classList.toggle("open",S.fopen);const b=$("#fbtn");if(b)b.setAttribute("aria-expanded",S.fopen)},
  bell(){bellPanel()},
  readAll(){S.notifs.forEach(n=>n.read=true);save();bellDot();closePanels()},
  notif(el){const n=S.notifs.find(x=>String(x.id)===el.dataset.id);if(n){n.read=true;save();closePanels();go(n.r)}},
@@ -1412,8 +1548,8 @@ function handleInput(el,ev){const k=el.dataset.in;
     if(f==="signed"){$("#wSubmit").disabled=w.signed.trim().length<3}
     if(f==="region"&&ev.type==="change")rerender();return}
 }
-document.addEventListener("click",ev=>{const el=ev.target.closest("[data-a]");if(!el){if(!ev.target.closest(".panel,#bell"))closePanels();return}
-  const fn=A[el.dataset.a];if(!fn)return;if(el.tagName!=="A"||["open","demo","notif"].includes(el.dataset.a))ev.preventDefault();fn(el,ev)});
+document.addEventListener("click",ev=>{const el=ev.target.closest("[data-a]");if(!el){if(!ev.target.closest(".panel,#bell,.drawer"))closePanels();return}
+  const fn=A[el.dataset.a];if(!fn)return;if(el.closest(".drawer")&&["role","theme","notes","assist","demo"].includes(el.dataset.a))closePanels();if(el.tagName!=="A"||["open","demo","notif"].includes(el.dataset.a))ev.preventDefault();fn(el,ev)});
 document.addEventListener("input",ev=>{const el=ev.target.closest("[data-in]");if(el)handleInput(el,ev)});
 document.addEventListener("change",ev=>{const el=ev.target.closest("[data-in]");if(el&&(el.tagName==="SELECT"||el.dataset.in==="budget"||el.type==="range"||el.type==="radio"))handleInput(el,ev)});
 document.addEventListener("keydown",ev=>{
@@ -1447,23 +1583,23 @@ const Demo={on:false,paused:false,i:0,el:null,
   {d:9000,cap:"The buyer sees the counter, with a live response clock, and accepts. Escrow opens at that moment.",run:async()=>{explain=false;setRole("buyer");go("/offer/"+S.wizard.listingId);await sleep(900);spot("#thread");await sleep(3500);const b=$("[data-a=buyerAccept]");b&&A.buyerAccept(b)}},
   {d:9000,cap:"The deal room: escrow ID generated at acceptance, live deadline clocks, and the seller's savings.",run:async()=>{go("/deal");await sleep(700);spot("#clocks")}},
   {d:14000,cap:"Every milestone advances the timeline: earnest money, disclosures, inspection, appraisal, loan, signing, recording.",run:async()=>{spot("#timeline");for(let k=0;k<12&&Demo.on;k++){if(!S.deal||!S.deal.steps.find(x=>!x.done))break;advance();rerender();spot("#timeline");await sleep(1050)}}},
-  {d:7000,cap:"Closed. The seller paid 1% and kept the rest. That's Speed Estate. Explore any screen, or turn on GROK notes (N).",run:async()=>{spot(".savings")}}
+  {d:7000,cap:"Closed. The seller paid 1% and kept the rest. That's Speed Estate. Explore any screen, or open GROK notes.",run:async()=>{spot(".savings")}}
  ],
  ui(){if(!this.el){this.el=document.createElement("div");this.el.className="demo";this.el.setAttribute("role","region");this.el.setAttribute("aria-label","Guided demo");document.body.appendChild(this.el)}
-  const s=this.steps[this.i];this.el.innerHTML=`<div class="row between"><span class="tiny" style="letter-spacing:.14em;text-transform:uppercase;color:#7FD8CB;font-weight:800">Guided demo · ${this.i+1}/${this.steps.length}</span><div class="row" style="gap:6px"><button class="btn ghost" style="color:#EAF3F2;border-color:#2a4a54" data-demo="pause">${this.paused?"Resume":"Pause"}</button><button class="btn ghost" style="color:#EAF3F2;border-color:#2a4a54" data-demo="next">Next</button><button class="btn" style="background:#FF6A3D;color:#fff" data-demo="exit">Exit</button></div></div><div class="cap" style="margin-top:8px">${s.cap}</div><div class="bar"><i id="dbar" style="width:0%"></i></div>`},
+  const s=this.steps[this.i];this.el.innerHTML=`<div class="row between"><span class="tiny" style="letter-spacing:.14em;text-transform:uppercase;color:#7FD8CB;font-weight:800">Guided demo · ${this.i+1}/${this.steps.length}</span><div class="row" style="gap:6px"><button class="btn ghost" style="color:#EAF3F2;border-color:#2a4a54" data-demo="back" aria-label="Previous step" ${this.i===0?"disabled":""}>Back</button><button class="btn ghost" style="color:#EAF3F2;border-color:#2a4a54" data-demo="pause">${this.paused?"Resume":"Pause"}</button><button class="btn ghost" style="color:#EAF3F2;border-color:#2a4a54" data-demo="next">Next</button><button class="btn" style="background:#FF6A3D;color:#fff" data-demo="exit">Exit</button></div></div><div class="cap" style="margin-top:8px">${s.cap}</div><div class="bar"><i id="dbar" style="width:0%"></i></div>`},
  async start(){if(this.on)return;if(!confirm("Run the 2-minute guided demo? It resets the example data in this browser."))return;
-  const t=S.theme,nt=S.notes;S=seedState();S.theme=t;S.notes=false;save();$("#app").classList.remove("notes-on");this.on=true;this.i=0;this.paused=false;this.notes=nt;this.loop()},
+  const t=S.theme,nt=S.notes,nm=S.mnotes;S=seedState();S.theme=t;S.notes=false;S.mnotes=false;save();setNotes(false);this.nm=nm;this.on=true;document.body.classList.add("demo-on");this.i=0;this.paused=false;this.notes=nt;this.loop()},
  async loop(){while(this.on&&this.i<this.steps.length){const s=this.steps[this.i];this.ui();const myI=this.i;s.run().catch(e=>console.error(e));
    let el=0;while(this.on&&this.i===myI&&el<s.d){await sleep(100);if(!this.paused)el+=100;const b=$("#dbar");if(b)b.style.width=(el/s.d*100)+"%"}
    if(this.i===myI)this.i++}
   if(this.on){if(S.deal&&!S.deal.steps.find(x=>!x.done))confetti();this.stop()}},
- stop(){this.on=false;$$(".spot").forEach(x=>x.classList.remove("spot"));if(this.el){this.el.remove();this.el=null}S.notes=this.notes!==false;save();$("#app").classList.toggle("notes-on",S.notes);toast("Demo finished. Everything you saw is still clickable.")}
+ stop(){this.on=false;document.body.classList.remove("demo-on");$$(".spot").forEach(x=>x.classList.remove("spot"));if(this.el){this.el.remove();this.el=null}S.notes=this.notes!==false;S.mnotes=false;save();setNotes(notesOn());toast("Demo finished. Everything you saw is still clickable.")}
 };
-document.addEventListener("click",ev=>{const b=ev.target.closest("[data-demo]");if(!b)return;const k=b.dataset.demo;if(k==="pause"){Demo.paused=!Demo.paused;Demo.ui()}else if(k==="next"){Demo.i++}else if(k==="exit"){Demo.i=99;Demo.stop()}});
+document.addEventListener("click",ev=>{const b=ev.target.closest("[data-demo]");if(!b)return;const k=b.dataset.demo;if(k==="pause"){Demo.paused=!Demo.paused;Demo.ui()}else if(k==="next"){Demo.i++}else if(k==="back"){if(Demo.i>0)Demo.i--}else if(k==="exit"){Demo.i=99;Demo.stop()}});
 
 /* ================= INIT ================= */
 shell();render();bellDot();
-if(!localStorage.getItem(KEY+"-seen")){localStorage.setItem(KEY+"-seen","1");setTimeout(()=>toast("Tip: press <b>Guided demo</b> for a 2-minute walkthrough. GROK notes are on the right (N to toggle)."),900)}
+if(!localStorage.getItem(KEY+"-seen")){localStorage.setItem(KEY+"-seen","1");setTimeout(()=>toast("Tip: press <b>Guided demo</b> for a 2-minute walkthrough. GROK notes: tap Notes on a phone, or press N on a computer."),900)}
 window.__SE={S:()=>S,go,Demo};
 })();
 </script></body></html>
